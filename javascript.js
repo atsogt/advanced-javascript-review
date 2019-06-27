@@ -58,24 +58,51 @@ c) correct answer (I would use a number for this)
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
 
-function Question(questions, answers, correct) {
-  this.questions = questions;
-  this.answers = answers;
-  this.correct = correct;
-}
-
-Question.prototype.displayQuestion = function() {
-  console.log(this.questions);
-  for (var i = 0; i < this.answers.length; i++) {
-    console.log(i + ":" + this.answers[i]);
+(function() {
+  function Question(question, answer, correct) {
+    this.question = question;
+    this.answer = answer;
+    this.correct = correct;
   }
-};
 
-var q1 = new Question("Are you Anand?", ["yes", "no"], 0);
-var q2 = new Question("Do you like JavaScript?", ["no", "yes"], 1);
-var q3 = new Question("Do you like Coding?", ["maybe", "kinda", "yes"], 2);
+  Question.prototype.displayQuestion = function() {
+    console.log(this.question);
 
-var questions = [q1, q2, q3];
+    for (var i = 0; i < this.answer.length; i++) {
+      console.log(i + ": " + this.answer[i]);
+    }
+  };
 
-var n = Math.floor(Math.random() * questions.length);
-questions[n].displayQuestion();
+  Question.prototype.checkAnswer = function(ans) {
+    if (ans === this.correct) {
+      console.log("Correct");
+    } else {
+      console.log("Wrong, try again");
+    }
+  };
+
+  //instances
+
+  var q1 = new Question("Is Javascript cool?", ["yes", "no", "maybe"], "0");
+
+  var q2 = new Question("What is my name?", ["DT", "Bill", "Anand"], "2");
+
+  var q3 = new Question(
+    "Where did I grow up?",
+    ["China", "America", "Australia"],
+    "1"
+  );
+  var questions = [q1, q2, q3];
+
+  var n = Math.floor(Math.random() * questions.length);
+
+  questions[n].displayQuestion();
+
+  var answer = prompt("Please select the correct answer.");
+
+  questions[n].checkAnswer(answer);
+  var answer2 = prompt("what's the number");
+  console.log(answer2);
+  console.log(Question);
+  // console.log(questions[n]);)
+})();
